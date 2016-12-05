@@ -1,27 +1,27 @@
-import '../ui/content-forms/dashboard.js';
-import '../ui/content-forms/user-quizzes.js';
-import '../ui/content-forms/create-form.js';
+import '../ui/dashboard/dashboard.js';
+import '../ui/user-quizzes/userQuizzes.js';
+import '../ui/create-form/createForm.js';
 
 FlowRouter.route('/', {
 	action: function() {
-		BlazeLayout.render("content", {content: "dashboard"});
+		BlazeLayout.render("main", {content: "dashboard"});
 	}
 });
 
 FlowRouter.route('/dashboard', {
 	action: function() {
-		BlazeLayout.render("content", {content: "dashboard"});
+		BlazeLayout.render("main", {content: "dashboard"});
 	}
 });
 
 FlowRouter.route('/myquizzes', {
 	action: function() {
-		BlazeLayout.render("content", {content: "user-quizzes"});
+		BlazeLayout.render("main", {content: "userQuizzes"});
 	}
 });
 
 FlowRouter.route('/create', {
 	action: function() {
-		BlazeLayout.render("content", {content: "create-form"});
+		BlazeLayout.render("main", {content: "createForm"});
 	}
 });
