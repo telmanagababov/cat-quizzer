@@ -1,0 +1,44 @@
+<template name="createFormQuestion">
+
+	<section id="create-form-question" class="container">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>{{title}}</h3>
+				<h4>Question: {{questionIndex}}</h4>
+			</div>
+			<div class="panel-body">
+				<div class="input-group">
+					<span class="input-group-addon">Question</span>
+					<input id="question-input" type="text" class="form-control" placeholder="Question">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Correct Answer</span>
+					<input id="correct-answer-input" type="text" class="form-control" placeholder="Correct Answer">
+				</div>
+				<div id="wrong-answers-group">
+					{{#each wrongAnswers}}
+						<div class="input-group">
+							<span class="input-group-addon">Wrong answer {{@index}}</span>
+							<input type="text" class="form-control"
+									placeholder="Wrong answer {{@index}}" data-index="{{@index}}">
+						</div>
+					{{/each}}
+				</div>
+				<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+						<button id="end-quiz-control" type="button" class="btn btn-default">
+							End
+						</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button id="next-question-control" type="button" class="btn btn-default"
+								disabled="{{#if not isValidInput}}true{{/if}}">
+							Next
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</template>

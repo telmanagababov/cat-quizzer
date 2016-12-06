@@ -1,0 +1,23 @@
+<template name="createFormTitle">
+
+	<section id="create-form-title" class="container">
+		<div class="input-group">
+			<span class="input-group-addon">Quiz name</span>
+			<input id="create-quiz-input"
+					type="text"
+					class="form-control"
+					placeholder="Quiz name">
+		</div>
+		<div class="btn-group btn-group-justified" role="group">
+			<div class="btn-group" role="group">
+				<button id="create-quiz-control"
+						type="button"
+						class="btn btn-default"
+						disabled="{{#if not isValidInput title}}true{{/if}}">
+					Create
+				</button>
+			</div>
+		</div>
+	</section>
+
+</template>
