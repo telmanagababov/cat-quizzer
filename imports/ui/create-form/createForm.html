@@ -4,12 +4,14 @@
 		<h3>Create Quiz</h3>
 	</header>
 
-	{{#if not isTitleSet}}
-		{{> createFormTitle onTitleSet=onTitleSet}}
-	{{else}}
-		{{> createFormQuestion title=title
-				onQuestionAdded=onQuestionAdded
-				onCompleted=onCompleted}}
-	{{/if}}
+	<section id="create-form-content">
+		{{#if not isTitleSet}}
+			{{> createFormTitle onTitleSet=onTitleSet}}
+		{{else}}
+			{{> createFormQuestion title=title
+					onQuestionAdded=onQuestionAdded
+					onCompleted=onCompleted}}
+		{{/if}}
+	</section>
 
 </template>

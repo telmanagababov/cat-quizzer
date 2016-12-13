@@ -1,5 +1,13 @@
 <template name="userQuizzes">
 
-	<h3>USER QUIZZES TEMPLATE</h3>
+	<header>
+		<h3>User Quizzes</h3>
+	</header>
+
+	<section id="user-quizzes" class="container">
+		{{#each quizzes}}
+			{{> dashboardCard }}
+		{{/each}}
+	</section>
 
 </template>

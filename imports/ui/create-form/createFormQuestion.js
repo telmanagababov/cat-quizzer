@@ -1,40 +1,28 @@
 import {Template} from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
+import QuestionVO from './questionVO';
 import './createFormQuestion.html';
 
-const WRONG_ANSWERS_AMOUNT = 4,
-	defaultWrongAnswers = Array.apply(null, new Array(WRONG_ANSWERS_AMOUNT));
+let instance = null,
+	vo = null;
 
-let question = '',
-	correctAnswer = '',
-	wrongAnswers = defaultWrongAnswers.concat();
-
-function switchToNextQuestion() {
-	const instance = Template.instance();
-	let questionIndex = instance.state.get('questionIndex');
-	resetValues();
-	instance.state.set('questionIndex', questionIndex + 1);
-}
-
-function resetValues() {
-	const instance = Template.instance();
+function initQuestion() {
 	instance.state.set('isInputValid', false);
 	instance.state.set('questionIndex', 1);
-	question = '';
-	correctAnswer = '';
-	wrongAnswers = defaultWrongAnswers.concat();
 	$('input').toArray().forEach(node => node.value = '');
+	vo = new QuestionVO();
 }
 
-function isValidInput() {
-	return question && question.length
-		&& correctAnswer && correctAnswer.length
-		&& wrongAnswers.every(answer => answer && answer.length);
+function switchToNextQuestion() {
+	let questionIndex = instance.state.get('questionIndex');
+	instance.state.set('questionIndex', questionIndex + 1);
+	initQuestion();
 }
 
 Template.createFormQuestion.onCreated(function onCreateFormCreated() {
+	instance = Template.instance();
 	this.state = new ReactiveDict();
-	resetValues();
+	initQuestion();
 });
 
 Template.createFormQuestion.helpers({
@@ -42,14 +30,12 @@ Template.createFormQuestion.helpers({
 		return this.title;
 	},
 	questionIndex() {
-		const instance = Template.instance();
 		return instance.state.get('questionIndex');
 	},
 	wrongAnswers() {
-		return wrongAnswers;
+		return vo.wrongAnswers;
 	},
 	isValidInput() {
-		const instance = Template.instance();
 		return instance.state.get('isValidInput');
 	},
 	not(value) {
@@ -58,32 +44,31 @@ Template.createFormQuestion.helpers({
 });
 
 Template.createFormQuestion.events({
-	'keyup #question-input'(event, instance) {
-		question = event.target.value;
-		instance.state.set('isValidInput', isValidInput());
+	'keyup #question-input'(event) {
+		vo.question = event.target.value;
+		instance.state.set('isValidInput', vo.isValid());
 	},
-	'keyup #correct-answer-input'(event, instance) {
-		correctAnswer = event.target.value;
-		instance.state.set('isValidInput', isValidInput());
+	'keyup #correct-answer-input'(event) {
+		vo.correctAnswer = event.target.value;
+		instance.state.set('isValidInput', vo.isValid());
 	},
-	'keyup #wrong-answers-group .form-control' (event, instance) {
+	'keyup #wrong-answers-group .form-control' (event) {
 		let index = $(event.target).data('index');
-		wrongAnswers[index] = event.target.value;
-		instance.state.set('isValidInput', isValidInput());
+		vo.wrongAnswers[index] = event.target.value;
+		instance.state.set('isValidInput', vo.isValid());
 	},
-	'keyup #create-form-question' (event, instance) {
+	'keyup #create-form-question' (event) {
 		let isValidInput = instance.state.get('isValidInput');
 		if(event.keyCode === 13 && isValidInput === true) {
+			this.onQuestionAdded(vo);
 			switchToNextQuestion();
-			this.onQuestionAdded();
 		}
 	},
 	'click #next-question-control'() {
+		this.onQuestionAdded(vo);
 		switchToNextQuestion();
-		this.onQuestionAdded();
 	},
 	'click #end-quiz-control'() {
-		resetValues();
-		this.onCompleted();
+		this.onCompleted(vo);
 	}
 });

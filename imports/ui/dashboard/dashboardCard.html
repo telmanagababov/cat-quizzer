@@ -1,0 +1,27 @@
+<template name="dashboardCard">
+
+	<div id="dashboard-card-content" class="panel panel-default">
+		<div class="panel-heading">
+			<div>{{title}}</div>
+		</div>
+
+		<div class="panel-body">
+			<div class="btn-group btn-group-md" role="group">
+				<button id="dashboard-card-start" type="button" class="btn btn-default">
+					Start
+				</button>
+				{{#if isOwner}}
+					<button id="dashboard-card-edit" type="button" class="btn btn-default">
+						Edit
+					</button>
+					<button id="dashboard-card-remove" type="button" class="btn btn-default">
+						Remove
+					</button>
+				{{/if}}
+			</div>
+		</div>
+
+		<div class="panel-footer">{{data}} by {{username}}</div>
+	</div>
+
+</template>

@@ -1,5 +1,13 @@
 <template name="dashboard">
 
-	<h3>DASHBOARD TEMPLATE</h3>
+	<header>
+		<h3>Quizzes Dashboard</h3>
+	</header>
+
+	<section id="dashboard-quizzes" class="container">
+		{{#each quizzes}}
+			{{> dashboardCard }}
+		{{/each}}
+	</section>
 
 </template>

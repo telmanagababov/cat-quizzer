@@ -1,7 +1,7 @@
-.input-group-addon {
+#create-form-content .input-group-addon {
 	min-width: 200px;
 }
 
-button {
+#create-form-content button {
 	margin-top: 10px;
 }
