@@ -1,0 +1,29 @@
+<template name="card">
+
+	<div id="card-content">
+		<div class="card panel panel-default">
+			<div class="panel-heading">
+				<div>{{title}}</div>
+			</div>
+
+			<div class="panel-body">
+				<div class="btn-group btn-group-md" role="group">
+					<button id="card-start" type="button" class="btn btn-default">
+						Start
+					</button>
+					{{#if isOwner}}
+						<button id="card-edit" type="button" class="btn btn-default">
+							Edit
+						</button>
+						<button id="card-remove" type="button" class="btn btn-default">
+							Remove
+						</button>
+					{{/if}}
+				</div>
+			</div>
+
+			<div class="panel-footer">{{data}} by {{username}}</div>
+		</div>
+	</div>
+
+</template>

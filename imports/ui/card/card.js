@@ -1,21 +1,23 @@
 import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
-import './dashboardCard.html';
+import './card.html';
+import './card.css';
 
-Template.dashboardCard.helpers({
+Template.card.helpers({
 	isOwner() {
 		return this.owner === Meteor.userId();
 	}
 });
 
-Template.dashboardCard.events({
-	'click #dashboard-card-start'() {
+Template.card.events({
+	'click #card-start'() {
 		console.log("start: ", this._id);
 	},
-	'click #dashboard-card-edit'() {
+	'click #card-edit'() {
 		console.log("edit: ", this._id);
+		FlowRouter.go('edit', {id: this._id});
 	},
-	'click #dashboard-card-remove'() {
+	'click #card-remove'() {
 		Meteor.call('quizzes.remove', this._id);
 	}
 });

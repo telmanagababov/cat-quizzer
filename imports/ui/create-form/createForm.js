@@ -6,7 +6,8 @@ import './createForm.css';
 import './createFormTitle.js';
 import './createFormQuestion.js';
 
-let instance = null;
+let instance = null,
+	quizId = null;
 
 Template.createForm.onCreated(function onCreateFormCreated() {
 	instance = Template.instance();
@@ -22,22 +23,26 @@ Template.createForm.helpers({
 	},
 	onTitleSet() {
 		return function(title) {
-			Meteor.call('quizzes.create', title);
+			console.log("title: ", title);
+			Meteor.call('quizzes.create', title, function(error, result) {
+				quizId = result;
+				console.log("quizId: ", quizId);
+			});
 			instance.state.set('title', title);
 			instance.state.set('isTitleSet', true);
 		};
 	},
 	onQuestionAdded() {
 		return function(vo) {
-			Meteor.call('quizzes.add', instance.state.get('title'), vo);
+			Meteor.call('quizzes.add', quizId, vo);
 		};
 	},
 	onCompleted() {
 		return function(vo) {
 			if(vo.isValid() === true) {
-				Meteor.call('quizzes.add', instance.state.get('title'), vo);
+				Meteor.call('quizzes.add', quizId, vo);
 			}
-			FlowRouter.go("/myquizzes");
+			FlowRouter.go("myquizzes");
 		};
 	},
 	not(value) {

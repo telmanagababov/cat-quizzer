@@ -15,17 +15,21 @@ Meteor.methods({
 	'quizzes.create'(title) {
 		console.log("create: quizzes.create: ", title);
 		check(title, String);
-		Quizzes.insert({
+		return Quizzes.insert({
 			title,
+			questions: [],
 			date: new Date(),
 			owner: this.userId,
 			username: Meteor.users.findOne(this.userId).username,
 		});
 	},
-	'quizzes.add'(title, question) {
-		console.log("add: quizzes.add: ", title, question);
-		check(title, String);
-		check(question, QuestionSchema);
+	'quizzes.add'(quizId, questionVO) {
+		console.log("add: quizzes.add: ", quizId, questionVO);
+		check(quizId, String);
+		check(questionVO, QuestionSchema);
+		Quizzes.update(quizId, { $push: {
+			questions: questionVO
+		} });
 	},
 	'quizzes.remove'(quizId) {
 		console.log("remove: quizzes.remove: ", quizId);

@@ -1,9 +1,8 @@
 import {Meteor} from 'meteor/meteor';
 import {Template} from 'meteor/templating';
 import {Quizzes} from '../../api/quizzes';
-import './dashboardCard.js';
+import '../card/card.js';
 import './dashboard.html';
-import './dashboard.css';
 
 let instance = null;
 
