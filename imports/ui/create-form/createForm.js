@@ -9,7 +9,7 @@ import './createFormQuestion.js';
 let instance = null,
 	quizId = null;
 
-Template.createForm.onCreated(function onCreateFormCreated() {
+Template.createForm.onCreated(function () {
 	instance = Template.instance();
 	this.state = new ReactiveDict();
 });

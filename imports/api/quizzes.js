@@ -6,7 +6,7 @@ import QuestionSchema from './quesionSchema';
 export const Quizzes = new Mongo.Collection('quizzes');
 
 if (Meteor.isServer) {
-	Meteor.publish('quizzes', function onQuizzesPublished () {
+	Meteor.publish('quizzes', function () {
 		return Quizzes.find();
 	});
 }
@@ -28,6 +28,20 @@ Meteor.methods({
 		check(quizId, String);
 		check(questionVO, QuestionSchema);
 		Quizzes.update(quizId, { $push: {
+			questions: questionVO
+		} });
+	},
+	'quizzes.update.title'(quizId, title) {
+		console.log("title: quizzes.update.title: ", quizId, title);
+		check(quizId, String);
+		check(title, String);
+		Quizzes.update(quizId, { $set: {title} });
+	},
+	'quizzes.remove.question'(quizId, questionVO) {
+		console.log("title: quizzes.remove.question: ", quizId, questionVO);
+		check(quizId, String);
+		check(questionVO, QuestionSchema);
+		Quizzes.update(quizId, { $pull: {
 			questions: questionVO
 		} });
 	},

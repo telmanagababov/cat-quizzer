@@ -5,7 +5,39 @@
 	</header>
 
 	<section id="edit-form-content">
-		{{id}}
+		<div class="input-group">
+			<span class="input-group-addon">Quiz name</span>
+			<input id="edit-quiz-name-input" class="form-control" type="text"
+					placeholder="Quiz name" value={{title}}>
+		</div>
+		{{#each questions}}
+			<div class="input-group">
+				<span class="input-group-addon">Question {{@index}}</span>
+				<input id="edit-quiz-question-input" class="form-control" type="text" disabled
+						placeholder="Quiz question {{@index}}" value={{question @index}}>
+				<div class="question-btn-group btn-group">
+					<button type="button" class="remove-question-btn btn btn-default" data-index="{{@index}}">
+						remove
+					</button>
+					<button type="button" class="edit-question-btn btn btn-default" data-index="{{@index}}">
+						edit
+					</button>
+				</div>
+			</div>
+		{{/each}}
+	</section>
+
+	<section id="edit-form-controls">
+		<div class="btn-group">
+			<button id="add-question-quiz-control" type="button" class="btn btn-default col-xs-12">
+				Add question
+			</button>
+		</div>
+		<div class="btn-group">
+			<button id="done-edit-quiz-control" type="button" class="btn btn-default col-xs-12">
+				Done
+			</button>
+		</div>
 	</section>
 
 </template>

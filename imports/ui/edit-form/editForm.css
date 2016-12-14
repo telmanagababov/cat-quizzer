@@ -1,3 +1,17 @@
 #edit-form-content {
+	margin: 25px;
+}
+#edit-form-content .question-btn-group {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+}
 
+#edit-form-controls {
+	margin: 25px;
+	width: calc(100% - 50px);
+}
+#edit-form-controls .btn-group {
+	width: 100%;
 }
