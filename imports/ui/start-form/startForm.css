@@ -1,0 +1,23 @@
+#start-form-header {
+	text-align: center;
+}
+#start-form-header .info {
+}
+
+#start-form-content {
+	margin: 25px;
+}
+#start-form-content .btn-group {
+	position: absolute;
+	top: 0;
+	right: 0;
+	z-index: 2;
+}
+
+#start-form-controls {
+	margin: 25px;
+	width: calc(100% - 50px);
+}
+#start-form-controls .btn-group {
+	width: 100%;
+}

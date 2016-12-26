@@ -2,6 +2,7 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import QuestionSchema from './quesionSchema';
+import ResultVO from '../vo/resultVO'
 
 export const Quizzes = new Mongo.Collection('quizzes');
 
@@ -49,5 +50,20 @@ Meteor.methods({
 		console.log("remove: quizzes.remove: ", quizId);
 		check(quizId, String);
 		Quizzes.remove(quizId);
+	},
+	'quizzes.submit' (quizId, answers) {
+		console.log("answer: quizzes.answer: ", quizId, answers);
+		check(quizId, String);
+		check(answers, [String]);
+		return generateResultVO(quizId, answers);
 	}
 });
+
+function generateResultVO(quizId, answers) {
+	let resultVO = new ResultVO(),
+		questions = Quizzes.findOne(quizId).questions;
+	questions.forEach((questionVO, index) => {
+		resultVO.add(questionVO.question, answers[index], questionVO.correctAnswer === answers[index]);
+	});
+	return resultVO;
+}

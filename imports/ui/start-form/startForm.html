@@ -1,0 +1,57 @@
+<template name="startForm">
+
+	<header id="start-form-header">
+		<h3 class="info">{{title}}</h3>
+	</header>
+
+	{{#if hasResult}}
+		<section id="start-form-result">
+			<div class="input-group">
+				<span class="input-group-addon">Total</span>
+				<input class="form-control" type="text" placeholder="total" value={{resultTotal}} disabled>
+			</div>
+			{{#each resultQuestions}}
+				<div class="input-group answer-start-quiz">
+					<span class="input-group-addon">Question {{@index}}</span>
+					<input class="form-control" type="text"
+							placeholder="Result {{@index}}" value={{resultResult @index}} disabled>
+				</div>
+			{{/each}}
+		</section>
+	{{else}}
+		<section id="start-form-content">
+			<div class="input-group">
+				<span class="input-group-addon">Question {{questionId}}</span>
+				<input class="form-control" type="text" placeholder="question" value={{question}} disabled>
+			</div>
+			{{#each answers}}
+				<div class="input-group answer-start-quiz">
+					<span class="input-group-addon">Answer {{@index}}</span>
+					<input class="form-control" type="text"
+							placeholder="Answer {{@index}}" value={{answer @index}} disabled>
+					<div class="btn-group">
+						<button type="button" class="btn btn-default" data-index="{{@index}}">
+							answer
+						</button>
+					</div>
+				</div>
+			{{/each}}
+		</section>
+	{{/if}}
+
+	<section id="start-form-controls">
+		<div class="btn-group">
+			{{#if hasResult}}
+				<div class="btn-group">
+					<button id="get-results-start-quiz-control" type="button" class="btn btn-default col-xs-12">
+						Results
+					</button>
+				</div>
+			{{/if}}
+			<button id="done-start-quiz-control" type="button" class="btn btn-default col-xs-12">
+				End
+			</button>
+		</div>
+	</section>
+
+</template>

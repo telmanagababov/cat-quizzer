@@ -8,6 +8,7 @@ export default QuestionSchema = new SimpleSchema({
 		label: 'Correct Answer'
 	},
 	wrongAnswers: {
-		type: [String]
+		type: [String],
+		label: 'Wrong Answers'
 	}
 })

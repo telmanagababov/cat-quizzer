@@ -23,10 +23,8 @@ Template.createForm.helpers({
 	},
 	onTitleSet() {
 		return function(title) {
-			console.log("title: ", title);
 			Meteor.call('quizzes.create', title, function(error, result) {
 				quizId = result;
-				console.log("quizId: ", quizId);
 			});
 			instance.state.set('title', title);
 			instance.state.set('isTitleSet', true);

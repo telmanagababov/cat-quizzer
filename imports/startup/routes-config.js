@@ -2,6 +2,8 @@ import '../ui/dashboard/dashboard.js';
 import '../ui/user-quizzes/userQuizzes.js';
 import '../ui/create-form/createForm.js';
 import '../ui/edit-form/editForm.js';
+import '../ui/start-form/startForm.js';
+import '../ui/results/results.js';
 import '../ui/not-found-info/notFoundInfo.js';
 
 FlowRouter.route('/', {
@@ -35,6 +37,20 @@ FlowRouter.route('/edit/:id', {
 	name: 'edit',
 	action: function() {
 		BlazeLayout.render("main", {content: "editForm"});
+	}
+});
+
+FlowRouter.route('/start/:id', {
+	name: 'start',
+	action: function() {
+		BlazeLayout.render("main", {content: "startForm"});
+	}
+});
+
+FlowRouter.route('/results/:id', {
+	name: 'results',
+	action: function() {
+		BlazeLayout.render("main", {content: "results"});
 	}
 });
 

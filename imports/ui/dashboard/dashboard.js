@@ -13,7 +13,6 @@ Template.dashboard.onCreated(function () {
 
 Template.dashboard.helpers({
 	quizzes() {
-		console.log("dashboard: quizzes: ", Quizzes.find({}).fetch());
 		return Quizzes.find({}).fetch();
 	},
 });

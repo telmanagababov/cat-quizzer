@@ -1,0 +1,14 @@
+#login-request-info {
+	text-align: center;
+}
+
+#login-request-info .info {
+
+}
+
+#login-request-info .icon {
+	width: 180px;
+	height: 200px;
+	margin: 20px auto;
+	background-image: url("img/login-icon.png");
+}

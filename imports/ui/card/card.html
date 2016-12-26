@@ -11,15 +11,20 @@
 					<button id="card-start" type="button" class="btn btn-default">
 						Start
 					</button>
-					{{#if isOwner}}
+					<button id="card-results" type="button" class="btn btn-default">
+						Results
+					</button>
+				</div>
+				{{#if isOwner}}
+					<div class="btn-group btn-group-xs" role="group">
 						<button id="card-edit" type="button" class="btn btn-default">
 							Edit
 						</button>
 						<button id="card-remove" type="button" class="btn btn-default">
 							Remove
 						</button>
-					{{/if}}
-				</div>
+					</div>
+				{{/if}}
 			</div>
 
 			<div class="panel-footer">{{data}} by {{username}}</div>

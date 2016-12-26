@@ -6,7 +6,11 @@
 	</head>
 
 	{{> header}}
-	{{> content}}
+	{{#if currentUser}}
+		{{> content}}
+	{{else}}
+		{{> loginRequestInfo}}
+	{{/if}}
 	{{> footer}}
 
 </template>

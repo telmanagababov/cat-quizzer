@@ -11,13 +11,15 @@ Template.card.helpers({
 
 Template.card.events({
 	'click #card-start'() {
-		console.log("start: ", this._id);
+		FlowRouter.go('start', {id: this._id});
 	},
 	'click #card-edit'() {
-		console.log("edit: ", this._id);
 		FlowRouter.go('edit', {id: this._id});
 	},
 	'click #card-remove'() {
 		Meteor.call('quizzes.remove', this._id);
+	},
+	'click #card-results'() {
+		FlowRouter.go('results', {id: this._id});
 	}
 });

@@ -1,6 +1,6 @@
 import {Template} from 'meteor/templating';
 import { ReactiveDict } from 'meteor/reactive-dict';
-import QuestionVO from './questionVO';
+import QuestionVO from '../../vo/questionVO';
 import './createFormQuestion.html';
 
 let instance = null,
