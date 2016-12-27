@@ -91,6 +91,7 @@ Template.startForm.events({
 				console.log("resultVO: ", result);
 			})
 		} else {
+			currentAnswers = [];
 			instance.state.set('questionId', questionIndex + 1);
 		}
 	},

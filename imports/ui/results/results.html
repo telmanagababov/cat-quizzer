@@ -1,10 +1,26 @@
 <template name="results">
 
-	<header>
+	<header id="results-quizzes-header">
 		<h3>Quizzes Results</h3>
 	</header>
 
-	<section id="results-quizzes" class="container">
+	<section id="results-quizzes-content" class="container">
+		<h4>{{title}}</h4>
+		{{#each records}}
+			<div class="input-group record-result-quizzes">
+				<span class="input-group-addon">{{recordUser @index}}</span>
+				<input class="form-control" type="text"
+						placeholder="Record {{@index}}" value={{recordPoints @index}} disabled>
+			</div>
+		{{/each}}
+	</section>
+
+	<section id="results-quizzes-controls">
+		<div class="btn-group">
+			<button id="done-results-quiz-control" type="button" class="btn btn-default col-xs-12">
+				Dashboard
+			</button>
+		</div>
 	</section>
 
 </template>

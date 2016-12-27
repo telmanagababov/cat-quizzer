@@ -1,0 +1,15 @@
+#results-quizzes-header {
+	text-align: center;
+}
+
+#results-quizzes-content {
+	margin: 25px;
+}
+
+#results-quizzes-controls {
+	margin: 25px;
+	width: calc(100% - 50px);
+}
+#results-quizzes-controls .btn-group {
+	width: 100%;
+}

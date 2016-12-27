@@ -2,7 +2,9 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check } from 'meteor/check';
 import QuestionSchema from './quesionSchema';
+import QuizVO from '../vo/quizVO'
 import ResultVO from '../vo/resultVO'
+import RecordVO from '../vo/recordVO'
 
 export const Quizzes = new Mongo.Collection('quizzes');
 
@@ -16,13 +18,7 @@ Meteor.methods({
 	'quizzes.create'(title) {
 		console.log("create: quizzes.create: ", title);
 		check(title, String);
-		return Quizzes.insert({
-			title,
-			questions: [],
-			date: new Date(),
-			owner: this.userId,
-			username: Meteor.users.findOne(this.userId).username,
-		});
+		return Quizzes.insert(new QuizVO(title, this.userId));
 	},
 	'quizzes.add'(quizId, questionVO) {
 		console.log("add: quizzes.add: ", quizId, questionVO);
@@ -55,7 +51,14 @@ Meteor.methods({
 		console.log("answer: quizzes.answer: ", quizId, answers);
 		check(quizId, String);
 		check(answers, [String]);
-		return generateResultVO(quizId, answers);
+		let resultVO = generateResultVO(quizId, answers),
+			recordVO = new RecordVO(Meteor.users.findOne(this.userId).username, resultVO.total);
+		Quizzes.update(quizId, { $push: {
+			records: recordVO
+		} });
+		console.log("submit: quizzes.submit: recordVO: ", recordVO);
+		console.log("submit: quizzes.submit: quiz: ", Quizzes.findOne(quizId));
+		return resultVO;
 	}
 });
 
