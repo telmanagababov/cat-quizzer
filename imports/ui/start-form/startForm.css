@@ -4,9 +4,6 @@
 #start-form-header .info {
 }
 
-#start-form-content {
-	margin: 25px;
-}
 #start-form-content .btn-group {
 	position: absolute;
 	top: 0;
@@ -14,6 +11,8 @@
 	z-index: 2;
 }
 
+#start-form-content,
+#start-form-result,
 #start-form-controls {
 	margin: 25px;
 	width: calc(100% - 50px);

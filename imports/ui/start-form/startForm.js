@@ -21,11 +21,15 @@ function generateAnswers() {
 	let generatedAnswers = [],
 		currentQuestion = getCurrentQuestion();
 	if(currentQuestion.correctAnswer) {
+		let correctAnswerIndex = Math.round(Math.random() * currentQuestion.wrongAnswers.length);
 		generatedAnswers = currentQuestion.wrongAnswers.concat();
-		generatedAnswers.push(currentQuestion.correctAnswer);
-		generatedAnswers.sort(() => Math.random() > 0.5 ? 1 : - 1);
+		generatedAnswers.splice(correctAnswerIndex, 0, currentQuestion.correctAnswer);
 	}
 	return generatedAnswers;
+}
+
+function reset() {
+	currentAnswers = [];
 }
 
 Template.startForm.onCreated(function () {
@@ -85,19 +89,21 @@ Template.startForm.events({
 			questionIndex = instance.state.get('questionId'),
 			answerIndex = $(event.target).data('index');
 		userInput.push(currentAnswers[answerIndex]);
+		reset();
 		if(questionIndex === quizVO.questions.length -1) {
 			Meteor.call('quizzes.submit', quizId, userInput, function (error, result) {
 				instance.state.set('resultVO', result);
 			})
 		} else {
-			currentAnswers = [];
 			instance.state.set('questionId', questionIndex + 1);
 		}
 	},
 	'click #done-start-quiz-control'() {
+		reset();
 		FlowRouter.go('dashboard');
 	},
 	'click #get-results-start-quiz-control'() {
+		reset();
 		FlowRouter.go('results', {id: quizId});
 	}
 });

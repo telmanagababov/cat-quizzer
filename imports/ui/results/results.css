@@ -4,6 +4,7 @@
 
 #results-quizzes-content {
 	margin: 25px;
+	width: calc(100% - 50px);
 }
 
 #results-quizzes-controls {
