@@ -13,19 +13,16 @@ Template.editForm.onCreated(function () {
 	quizId = FlowRouter.getParam('id');
 	this.state = new ReactiveDict();
 	Meteor.subscribe('quizzes', () => {
-		console.log("on quizzes updated");
 		this.state.set('quizVO', Quizzes.findOne(quizId));
 	});
 });
 
 Template.editForm.helpers({
 	title() {
-		console.log("editForm: title");
 		let quizVO = instance.state.get('quizVO');
 		return quizVO ? quizVO.title : '';
 	},
 	questions() {
-		console.log("editForm: questions");
 		let quizVO = instance.state.get('quizVO');
 		return quizVO ? quizVO.questions : [];
 	},
@@ -48,7 +45,6 @@ Template.editForm.events({
 		let questionIndex = $(event.target).data('index'),
 			questionVO = instance.state.get('quizVO').questions[questionIndex];
 		Meteor.call('quizzes.remove.question', quizId, questionVO, () => {
-			console.log("on quiz removed");
 			instance.state.set('quizVO', Quizzes.findOne(quizId));
 		});
 	},

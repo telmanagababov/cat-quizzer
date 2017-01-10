@@ -88,7 +88,6 @@ Template.startForm.events({
 		if(questionIndex === quizVO.questions.length -1) {
 			Meteor.call('quizzes.submit', quizId, userInput, function (error, result) {
 				instance.state.set('resultVO', result);
-				console.log("resultVO: ", result);
 			})
 		} else {
 			currentAnswers = [];

@@ -13,7 +13,6 @@ Template.userQuizzes.onCreated(function () {
 
 Template.userQuizzes.helpers({
 	quizzes() {
-		console.log("userQuizzes: quizzes: ", Quizzes.find({owner: {$eq: Meteor.userId()}}).fetch());
 		return Quizzes.find({owner: {$eq: Meteor.userId()}}).fetch();
 	},
 });

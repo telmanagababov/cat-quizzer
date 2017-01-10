@@ -23,7 +23,6 @@ function updateState() {
 		records = quizVO.records;
 	records = records.sort((a, b) => b.points - a.points);
 	records = records.splice(0, MAX_ITEMS);
-	console.log("updateState: ", title, records);
 	instance.state.set('title', title);
 	instance.state.set('records', records);
 }

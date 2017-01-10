@@ -16,12 +16,10 @@ if (Meteor.isServer) {
 
 Meteor.methods({
 	'quizzes.create'(title) {
-		console.log("create: quizzes.create: ", title);
 		check(title, String);
 		return Quizzes.insert(new QuizVO(title, this.userId));
 	},
 	'quizzes.add'(quizId, questionVO) {
-		console.log("add: quizzes.add: ", quizId, questionVO);
 		check(quizId, String);
 		check(questionVO, QuestionSchema);
 		Quizzes.update(quizId, { $push: {
@@ -29,13 +27,11 @@ Meteor.methods({
 		} });
 	},
 	'quizzes.update.title'(quizId, title) {
-		console.log("title: quizzes.update.title: ", quizId, title);
 		check(quizId, String);
 		check(title, String);
 		Quizzes.update(quizId, { $set: {title} });
 	},
 	'quizzes.remove.question'(quizId, questionVO) {
-		console.log("title: quizzes.remove.question: ", quizId, questionVO);
 		check(quizId, String);
 		check(questionVO, QuestionSchema);
 		Quizzes.update(quizId, { $pull: {
@@ -43,12 +39,10 @@ Meteor.methods({
 		} });
 	},
 	'quizzes.remove'(quizId) {
-		console.log("remove: quizzes.remove: ", quizId);
 		check(quizId, String);
 		Quizzes.remove(quizId);
 	},
 	'quizzes.submit' (quizId, answers) {
-		console.log("answer: quizzes.answer: ", quizId, answers);
 		check(quizId, String);
 		check(answers, [String]);
 		let resultVO = generateResultVO(quizId, answers),
@@ -56,8 +50,6 @@ Meteor.methods({
 		Quizzes.update(quizId, { $push: {
 			records: recordVO
 		} });
-		console.log("submit: quizzes.submit: recordVO: ", recordVO);
-		console.log("submit: quizzes.submit: quiz: ", Quizzes.findOne(quizId));
 		return resultVO;
 	}
 });
