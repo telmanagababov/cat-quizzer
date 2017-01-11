@@ -1,3 +1,7 @@
+#edit-question-form {
+	max-width: 100%;
+}
+
 #edit-question-form .input-group-addon {
 	min-width: 200px;
 }

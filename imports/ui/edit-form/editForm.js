@@ -35,7 +35,9 @@ Template.editForm.helpers({
 
 Template.editForm.events({
 	'click #add-question-quiz-control'() {
-
+		let quizVO = instance.state.get('quizVO'),
+			questionId = quizVO.questions.length;
+		FlowRouter.go('editquestion', {quizId, questionId});
 	},
 	'click #done-edit-quiz-control'() {
 		let title = document.querySelector('#edit-quiz-name-input').value;

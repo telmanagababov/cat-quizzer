@@ -20,13 +20,13 @@ Template.editQuestionForm.onCreated(function () {
 	quizId = FlowRouter.getParam('quizId');
 	questionId = parseInt(FlowRouter.getParam('questionId'));
 	this.state = new ReactiveDict();
-	this.state.set('isInputValid', false);
 	Meteor.subscribe('quizzes', () => {
 		quizVO = Quizzes.findOne(quizId);
 		questionVO = new QuestionVO(quizVO.questions[questionId]);
 		this.state.set('title', quizVO.title);
 		this.state.set('questionId', questionId + 1);
 		this.state.set('questionVO', questionVO);
+		this.state.set('isValidInput', questionVO.isValid());
 	});
 });
 
