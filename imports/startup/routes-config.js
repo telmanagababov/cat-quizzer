@@ -2,6 +2,7 @@ import '../ui/dashboard/dashboard.js';
 import '../ui/user-quizzes/userQuizzes.js';
 import '../ui/create-form/createForm.js';
 import '../ui/edit-form/editForm.js';
+import '../ui/edit-question-form/editQuestionForm';
 import '../ui/start-form/startForm.js';
 import '../ui/results/results.js';
 import '../ui/not-found-info/notFoundInfo.js';
@@ -37,6 +38,13 @@ FlowRouter.route('/edit/:id', {
 	name: 'edit',
 	action: function() {
 		BlazeLayout.render("main", {content: "editForm"});
+	}
+});
+
+FlowRouter.route('/editquestion/:quizId/:questionId', {
+	name: 'editquestion',
+	action: function() {
+		BlazeLayout.render("main", {content: "editQuestionForm"});
 	}
 });
 

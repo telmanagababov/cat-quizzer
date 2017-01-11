@@ -1,0 +1,7 @@
+#edit-question-form .input-group-addon {
+	min-width: 200px;
+}
+
+#edit-question-form button {
+	margin-top: 10px;
+}

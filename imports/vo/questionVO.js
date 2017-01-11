@@ -2,8 +2,14 @@ const WRONG_ANSWERS_AMOUNT = 4,
 	DEFAULT_WRONG_ANSWERS = Array.apply(null, new Array(WRONG_ANSWERS_AMOUNT));
 
 export default class QuestionVO {
-	constructor() {
-		this.reset();
+	constructor(questionVO) {
+		if(questionVO) {
+			this.question = questionVO.question;
+			this.correctAnswer = questionVO.correctAnswer;
+			this.wrongAnswers = questionVO.wrongAnswers;
+		} else {
+			this.reset();
+		}
 	}
 
 	reset() {

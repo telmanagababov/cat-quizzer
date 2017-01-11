@@ -31,6 +31,16 @@ Meteor.methods({
 		check(title, String);
 		Quizzes.update(quizId, { $set: {title} });
 	},
+	'quizzes.update.question'(quizId, questionId, questionVO) {
+		check(quizId, String);
+		check(questionId, Number);
+		check(questionVO, QuestionSchema);
+		let questions = Quizzes.findOne(quizId).questions;
+		questions[questionId] = questionVO;
+		Quizzes.update(quizId, { $set: {
+			questions: questions
+		} });
+	},
 	'quizzes.remove.question'(quizId, questionVO) {
 		check(quizId, String);
 		check(questionVO, QuestionSchema);

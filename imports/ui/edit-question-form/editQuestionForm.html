@@ -1,0 +1,45 @@
+<template name="editQuestionForm">
+
+	<section id="edit-question-form">
+		<div class="panel panel-default">
+			<div class="panel-heading">
+				<h3>{{title}}</h3>
+				<h4>Question: {{questionId}}</h4>
+			</div>
+			<div class="panel-body">
+				<div class="input-group">
+					<span class="input-group-addon">Question</span>
+					<input id="question-input" type="text" class="form-control"
+							placeholder="Question" value="{{question}}">
+				</div>
+				<div class="input-group">
+					<span class="input-group-addon">Correct Answer</span>
+					<input id="correct-answer-input" type="text" class="form-control"
+							placeholder="Correct Answer" value="{{correctAnswer}}">
+				</div>
+				<div id="wrong-answers-group">
+					{{#each wrongAnswers}}
+						<div class="input-group">
+							<span class="input-group-addon">Wrong answer {{@index}}</span>
+							<input type="text" class="form-control" placeholder="Wrong answer {{@index}}"
+									data-index="{{@index}}" value="{{wrongAnswer @index}}">
+						</div>
+					{{/each}}
+				</div>
+				<div class="btn-group btn-group-justified" role="group">
+					<div class="btn-group" role="group">
+						<button id="cancel-quiz-control" type="button" class="btn btn-default">
+							Cancel
+						</button>
+					</div>
+					<div class="btn-group" role="group">
+						<button id="end-quiz-control" type="button" class="btn btn-default">
+							End
+						</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+</template>

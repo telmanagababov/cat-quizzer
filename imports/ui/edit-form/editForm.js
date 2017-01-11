@@ -35,6 +35,7 @@ Template.editForm.helpers({
 
 Template.editForm.events({
 	'click #add-question-quiz-control'() {
+
 	},
 	'click #done-edit-quiz-control'() {
 		let title = document.querySelector('#edit-quiz-name-input').value;
@@ -48,7 +49,8 @@ Template.editForm.events({
 			instance.state.set('quizVO', Quizzes.findOne(quizId));
 		});
 	},
-	'click #edit-form-content .add-question-btn'() {
-
+	'click #edit-form-content .edit-question-btn'(event) {
+		let questionId = $(event.target).data('index').toString();
+		FlowRouter.go('editquestion', {quizId, questionId});
 	}
 });
