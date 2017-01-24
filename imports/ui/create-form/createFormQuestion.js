@@ -6,9 +6,8 @@ import './createFormQuestion.html';
 let instance = null,
 	vo = null;
 
-function initQuestion() {
+function resetQuestion() {
 	instance.state.set('isInputValid', false);
-	instance.state.set('questionIndex', 1);
 	$('input').toArray().forEach(node => node.value = '');
 	vo = new QuestionVO();
 }
@@ -16,13 +15,14 @@ function initQuestion() {
 function switchToNextQuestion() {
 	let questionIndex = instance.state.get('questionIndex');
 	instance.state.set('questionIndex', questionIndex + 1);
-	initQuestion();
+	resetQuestion();
 }
 
 Template.createFormQuestion.onCreated(function onCreateFormCreated() {
 	instance = Template.instance();
 	this.state = new ReactiveDict();
-	initQuestion();
+	instance.state.set('questionIndex', 1);
+	resetQuestion();
 });
 
 Template.createFormQuestion.helpers({

@@ -3,3 +3,9 @@
 	float: left;
 	margin: 10px;
 }
+
+#card-content .questions-info {
+	margin-top: 5px;
+	color: #888;
+	font-style: italic;
+}

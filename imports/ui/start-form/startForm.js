@@ -6,10 +6,14 @@ import QuestionVO from '../../vo/questionVO';
 import './startForm.html';
 import './startForm.css';
 
+const MAX_TIME = 10,
+	TIME_LEFT_UPDATE_DELAY = 250;
 let instance = null,
 	quizId = null,
 	currentAnswers = [],
-	userInput = [];
+	userInput = [],
+	timeStart = 0,
+	timeProgressInterval = 0;
 
 function getCurrentQuestion() {
 	let quizVO = instance.state.get('quizVO'),
@@ -28,8 +32,37 @@ function generateAnswers() {
 	return generatedAnswers;
 }
 
-function reset() {
+function progressTimeLeft() {
+	let timeSpent = Date.now() - timeStart,
+		timeLeft = MAX_TIME - timeSpent / 1000,
+		progress = parseInt(timeLeft / MAX_TIME * 100);
+	if(progress > 0) {
+		instance.state.set('timeLeft', progress);
+	} else {
+		answer('incorrect-answer');
+	}
+}
+
+function restart() {
 	currentAnswers = [];
+	timeStart = Date.now();
+	instance.state.set('timeLeft', 100);
+	clearInterval(timeProgressInterval);
+	timeProgressInterval = setInterval(progressTimeLeft, TIME_LEFT_UPDATE_DELAY);
+}
+
+function answer(currentAnswer) {
+	let quizVO = instance.state.get('quizVO'),
+		questionIndex = instance.state.get('questionId');
+	userInput.push(currentAnswer);
+	restart();
+	if(questionIndex === quizVO.questions.length -1) {
+		Meteor.call('quizzes.submit', quizId, userInput, function (error, result) {
+			instance.state.set('resultVO', result);
+		})
+	} else {
+		instance.state.set('questionId', questionIndex + 1);
+	}
 }
 
 Template.startForm.onCreated(function () {
@@ -38,6 +71,7 @@ Template.startForm.onCreated(function () {
 	this.state = new ReactiveDict();
 	this.state.set('questionId', 0);
 	Meteor.subscribe('quizzes', () => {
+		restart();
 		this.state.set('quizVO', Quizzes.findOne(quizId));
 	});
 });
@@ -80,30 +114,23 @@ Template.startForm.helpers({
 	},
 	resultTotal() {
 		return instance.state.get('resultVO').total;
+	},
+	timeLeft() {
+		return instance.state.get('timeLeft');
 	}
 });
 
 Template.startForm.events({
 	'click .answer-start-quiz button'(event) {
-		let quizVO = instance.state.get('quizVO'),
-			questionIndex = instance.state.get('questionId'),
-			answerIndex = $(event.target).data('index');
-		userInput.push(currentAnswers[answerIndex]);
-		reset();
-		if(questionIndex === quizVO.questions.length -1) {
-			Meteor.call('quizzes.submit', quizId, userInput, function (error, result) {
-				instance.state.set('resultVO', result);
-			})
-		} else {
-			instance.state.set('questionId', questionIndex + 1);
-		}
+		let answerIndex = $(event.target).data('index');
+		answer(currentAnswers[answerIndex]);
 	},
 	'click #done-start-quiz-control'() {
-		reset();
+		restart();
 		FlowRouter.go('dashboard');
 	},
 	'click #get-results-start-quiz-control'() {
-		reset();
+		restart();
 		FlowRouter.go('results', {id: quizId});
 	}
 });
